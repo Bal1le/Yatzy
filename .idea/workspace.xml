@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bed1782-295b-4529-b5e0-ce21edd298f8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Yatzy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Yatzy.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/YatzyGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/YatzyGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Die.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/RaffleCup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/RaffleCup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/YatzyResultCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/YatzyResultCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,21 +27,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "benn-christensen"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;benn-christensen&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/benn-christensen/Yatzy.git",
-    "accountId": "72e6f8f1-2ad2-41dc-b9cc-aa352c3736f3"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Bal1le/Yatzy.git&quot;,
+    &quot;accountId&quot;: &quot;547ece8f-27eb-4fbe-8f7c-ef6a15caaec7&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2XL0x8ZeBWMVIVNYaaMxvHQ18rw" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -48,6 +51,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.YatzyResultsCalculatorTests.executor": "Run",
+    "JUnit.YatzyResultsCalculatorTests.fourOfAKindScoreTests.executor": "Run",
+    "JUnit.YatzyResultsCalculatorTests.largeStraightScoreTests.executor": "Run",
+    "JUnit.YatzyResultsCalculatorTests.onePairScoreTests.executor": "Run",
+    "JUnit.YatzyResultsCalculatorTests.smallStraightScoreTests.executor": "Run",
+    "JUnit.YatzyResultsCalculatorTests.threeOfAKindScoreTests.executor": "Run",
+    "JUnit.YatzyResultsCalculatorTests.twoPairScoreTests.executor": "Run",
+    "JUnit.YatzyResultsCalculatorTests.upperSectionScoreTests.executor": "Run",
     "Repository.Attach.Annotations": "true",
     "Repository.Attach.JavaDocs": "true",
     "Repository.Attach.Sources": "true",
@@ -55,13 +66,29 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="YatzyResultsCalculatorTests.upperSectionScoreTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.YatzyResultsCalculatorTests">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gui.YatzyApp" />
+      <module name="Yatzy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YatzyResultsCalculatorTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Yatzy" />
+      <option name="PACKAGE_NAME" value="YatzyTests" />
+      <option name="MAIN_CLASS_NAME" value="YatzyTests.YatzyResultsCalculatorTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="YatzyResultsCalculatorTests.largeStraightScoreTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Yatzy" />
       <extension name="coverage">
         <pattern>
@@ -71,15 +98,33 @@
       </extension>
       <option name="PACKAGE_NAME" value="YatzyTests" />
       <option name="MAIN_CLASS_NAME" value="YatzyTests.YatzyResultsCalculatorTests" />
-      <option name="METHOD_NAME" value="upperSectionScoreTests" />
+      <option name="METHOD_NAME" value="largeStraightScoreTests" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="YatzyResultsCalculatorTests.twoPairScoreTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Yatzy" />
+      <option name="PACKAGE_NAME" value="YatzyTests" />
+      <option name="MAIN_CLASS_NAME" value="YatzyTests.YatzyResultsCalculatorTests" />
+      <option name="METHOD_NAME" value="twoPairScoreTests" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="JUnit.YatzyResultsCalculatorTests" />
+      <item itemvalue="JUnit.YatzyResultsCalculatorTests.twoPairScoreTests" />
+      <item itemvalue="JUnit.YatzyResultsCalculatorTests.largeStraightScoreTests" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.YatzyResultsCalculatorTests.upperSectionScoreTests" />
+        <item itemvalue="JUnit.YatzyResultsCalculatorTests" />
+        <item itemvalue="JUnit.YatzyResultsCalculatorTests.twoPairScoreTests" />
+        <item itemvalue="JUnit.YatzyResultsCalculatorTests.largeStraightScoreTests" />
       </list>
     </recent_temporary>
   </component>
