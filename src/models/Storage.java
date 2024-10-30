@@ -1,19 +1,8 @@
 package models;
 
-import javafx.scene.control.TextField;
-
-import java.util.ArrayList;
-
 public class Storage {
 
-    private int[] scoreInt = new int[15];
-    private int sum1;
-    private int bonus1;
-    private int total1;
-    private int sum2;
-    private int bonus2;
-    private int total2;
-    Die[] dice = new Die[5];
+    private int[] scoreInt = new int[18];
     YatzyResultCalculator points;
 
     public Storage(RaffleCup raffleCup) {
@@ -31,10 +20,10 @@ public class Storage {
             sum += scoreInt[index];
         }
 
-        this.sum1 = sum;
+        scoreInt[15] = sum;
 
-        if (sum >= 63) bonus1 = 50;
-        else bonus1 = 0;
+        if (sum >= 63) scoreInt[16] = 50;
+        else scoreInt[16] = 0;
     }
 
     //Update Total
@@ -42,17 +31,17 @@ public class Storage {
 
         int total = 0;
 
-        for(int index = 5; index < scoreInt.length; index++) {
+        for(int index = 6; index < scoreInt.length-3; index++) {
 
             total += scoreInt[index];
         }
 
-        total += sum1;
+        total = total + scoreInt[15] + scoreInt[16];
 
-        total += bonus1;
+        scoreInt[17] = total;
     }
 
-    public void updateScores(int arrayPlacement, YatzyResultCalculator points){
+    private void updateScores(int arrayPlacement, YatzyResultCalculator points){
 
         if (arrayPlacement < 6)
             this.scoreInt[arrayPlacement] = points.upperSectionScore(arrayPlacement+1);
@@ -95,11 +84,4 @@ public class Storage {
         return this.scoreInt;
 
     }
-
-    public int getSum1(){return this.sum1;}
-
-    public int getBonus1(){return this.bonus1;}
-
-    public int getTotal1(){return this.total1;}
-
 }

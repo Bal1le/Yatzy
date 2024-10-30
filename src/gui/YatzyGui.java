@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import models.RaffleCup;
 import models.Die;
 import models.Storage;
-import models.YatzyResultCalculator;
 
 import java.util.ArrayList;
 
@@ -24,12 +23,6 @@ public class YatzyGui extends Application {
     private final ArrayList<Label> diceMaster = new ArrayList<>();
     private final ArrayList<CheckBox> diceKeepBox = new ArrayList<>();
     private final ArrayList<GridPane> playerScores = new ArrayList<>();
-    private final TextField sum1 = new TextField();
-    private final TextField bonus1 = new TextField();
-    private final TextField total1 = new TextField();
-    private final TextField sum2 = new TextField();
-    private final TextField bonus2 = new TextField();
-    private final TextField total2 = new TextField();
     private final Label turnsLeftLbl = new Label();
     private final Button throwDice = new Button("Throw"); //Knappen til at kaste terninger
     private final int scoreTextFieldSize = 50; //Sætter størrelse på textfield for scores
@@ -37,9 +30,6 @@ public class YatzyGui extends Application {
     RaffleCup raffleCup = new RaffleCup();
     Tab spiller1 = new Tab("Spiller 1");
     Tab spiller2 = new Tab("Spiller 2");
-    private boolean isItPlayerOne;
-
-    private Storage storage = new Storage(this.raffleCup);
 
     @Override
     public void start(Stage primaryStage) {
@@ -49,8 +39,6 @@ public class YatzyGui extends Application {
         GridPane diePane = new GridPane();
         playerScores.add(createScore());
         playerScores.add(createScore());
-
-        isItPlayerOne = true;
 
         //Laver TabPane med 2 tabs
         TabPane tabPane = new TabPane();
@@ -89,12 +77,13 @@ public class YatzyGui extends Application {
     private void initContentScore(GridPane scorePane){
 
         scorePane.setGridLinesVisible(false);
+        Storage storage = new Storage(this.raffleCup);
 
         scorePane.setPadding(new Insets(20));
         scorePane.setHgap(10);
         scorePane.setVgap(10);
 
-        scoreUpset(scorePane);
+        scoreUpset(scorePane,storage);
         scorePane.setStyle(setBorderColorForGridPane());
     }
 
@@ -122,26 +111,18 @@ public class YatzyGui extends Application {
     }
 
     //row 6+ skal bruges til score
-    private void scoreUpset(GridPane pane){
+    private void scoreUpset(GridPane pane,Storage storage){
 
         int start = 1;
         int startRow = 0;
 
         for(int index = start; index <= 6; index++){
 
-            addEnSlagsType(pane,index,startRow);
+            addEnSlagsType(pane,index,startRow,storage);
 
             startRow++;
 
         }
-
-        pane.add(addLabel("Sum"),firstUsedColumn,7);
-        pane.add(sum1,firstUsedColumn+1,7);
-        sum1.setPrefWidth(scoreTextFieldSize);
-
-        pane.add(addLabel("Bonus"),firstUsedColumn,8);
-        pane.add(bonus1,firstUsedColumn+1,8);
-        bonus1.setPrefWidth(scoreTextFieldSize);
 
         startRow = 0;
 
@@ -149,31 +130,31 @@ public class YatzyGui extends Application {
 
         for(int index = start; index <= 4; index++){
 
-            addParOgEns(pane,index,startRow);
+            addParOgEns(pane,index,startRow,storage);
             startRow++;
 
         }
 
-        addRest(pane,startRow);
+        addRest(pane,startRow, storage);
 
     }
 
     //All add of Labels, TextFields and Buttons (This also counts visability of dice).
-    private void addEnSlagsType(GridPane pane, int start, int startRow){
+    private void addEnSlagsType(GridPane pane, int start, int startRow, Storage storage){
 
         pane.add(addLabel(start + "'ere"),firstUsedColumn,startRow);
-        pane.add(addTextField(),firstUsedColumn+1,startRow);
+        pane.add(addTextField(storage),firstUsedColumn+1,startRow);
         //pane.add(addButton(),firstUsedColumn+2,startRow);
 
     }
 
     //Tilføjer par og ens til listen i bunden.
-    private void addParOgEns(GridPane pane, int start, int startRow){
+    private void addParOgEns(GridPane pane, int start, int startRow, Storage storage){
 
         if(start <= 2){
 
             pane.add(addLabel(start + " par"),firstUsedColumn,startRow);
-            pane.add(addTextField(),firstUsedColumn+1,startRow);
+            pane.add(addTextField(storage),firstUsedColumn+1,startRow);
             //pane.add(addButton(),firstUsedColumn+2,startRow);
 
         }
@@ -181,7 +162,7 @@ public class YatzyGui extends Application {
         else{
 
             pane.add(addLabel(start + " ens"),firstUsedColumn,startRow);
-            pane.add(addTextField(),firstUsedColumn+1,startRow);
+            pane.add(addTextField(storage),firstUsedColumn+1,startRow);
             //pane.add(addButton(),firstUsedColumn+2,startRow);
 
         }
@@ -189,7 +170,7 @@ public class YatzyGui extends Application {
     }
 
     //Tilføjer resten af listen
-    private void addRest(GridPane pane, int startRow){
+    private void addRest(GridPane pane, int startRow, Storage storage){
 
         pane.add(addLabel("Lille straight"),firstUsedColumn,startRow);
         pane.add(addLabel("Stor straight"),firstUsedColumn,startRow+1);
@@ -199,14 +180,18 @@ public class YatzyGui extends Application {
 
         for(int index = startRow; index <= startRow+4; index++){
 
-            pane.add(addTextField(),firstUsedColumn+1,index);
+            pane.add(addTextField(storage),firstUsedColumn+1,index);
 
         }
 
-        pane.add(addLabel("Total"),firstUsedColumn-5,startRow+6);
-        pane.add(total1,firstUsedColumn-4,startRow+6);
-        total1.setPrefWidth(scoreTextFieldSize);
+        pane.add(addLabel("Sum"),firstUsedColumn-5,startRow+3);
+        pane.add(addTextField(storage),firstUsedColumn-4,startRow+3);
 
+        pane.add(addLabel("Bonus"),firstUsedColumn-5,startRow+4);
+        pane.add(addTextField(storage),firstUsedColumn-4,startRow+4);
+
+        pane.add(addLabel("Total"),firstUsedColumn-5,startRow+6);
+        pane.add(addTextField(storage),firstUsedColumn-4,startRow+6);
     }
 
     //Laver labels
@@ -215,14 +200,17 @@ public class YatzyGui extends Application {
     }
 
     //Laver textfield og tilføjer dem til ArrayList samt UI
-    private TextField addTextField(){
+    private TextField addTextField(Storage storage){
 
         TextField textField = new TextField();
         textField.setPrefWidth(50);
         scoreTextFields.add(textField);
 
-        int placement = scoreTextFields.size()-1;
-        textField.setOnMouseClicked(event  -> this.chooseFieldAction(event,placement));
+        int placement1 = scoreTextFields.size()-1;
+        int placement2 = scoreTextFields.size()-19;
+
+        if(placement1 < 18) textField.setOnMouseClicked(event  -> this.chooseFieldAction(event,placement1, storage));
+        else textField.setOnMouseClicked(event  -> this.chooseFieldAction(event,placement2, storage));
 
         return textField;
     }
@@ -278,24 +266,41 @@ public class YatzyGui extends Application {
             turnsLeftLbl.setText(throwsLeft + " Throws Left");
 
         }
+        else{
+
+            raffleCup.throwDice();
+            dice = raffleCup.getDice();
+
+
+            for(int index = 0; index < dice.length; index++){
+
+                if(!diceKeepBox.get(index).isSelected()) diceMaster.get(index).setText(Integer.toString(dice[index].getEyes()));
+
+            }
+            throwsLeft--;
+
+            turnsLeftLbl.setText(throwsLeft + " Throws Left");
+
+        }
     }
 
     //Når man vælger et sted at tilføje point, og bruger YatzyResultCalculator til at udregne point der skal tilføjes
-    private void chooseFieldAction(Event event, int arrayPlacement){
+    private void chooseFieldAction(Event event, int arrayPlacement, Storage storage){
 
         TextField textField = (TextField) event.getSource();
 
-        int[] scores = storage.getScoreInt(arrayPlacement);
+        int[] scores;
 
         Die[] dice = raffleCup.getDice();
 
-        if (throwsLeft != 3){
+        if (throwsLeft < 3){
             if(textField.getText().isEmpty()) {
                 for (int index = 0; index < dice.length; index++) {
 
                     dice[index].setEyes(Integer.parseInt(diceMaster.get(index).getText()));
 
                 }
+                scores = storage.getScoreInt(arrayPlacement);
 
                 textField.setText(Integer.toString(scores[arrayPlacement]));
 
@@ -304,9 +309,16 @@ public class YatzyGui extends Application {
                 for (CheckBox checkBox : diceKeepBox) checkBox.setSelected(false);
                 turnsLeftLbl.setText(throwsLeft + " Throws Left");
 
-                sum1.setText(Integer.toString(storage.getSum1()));
-                bonus1.setText(Integer.toString(storage.getBonus1()));
-                total1.setText(Integer.toString(storage.getTotal1()));
+                if(spiller1.isSelected()) {
+                    scoreTextFields.get(15).setText(Integer.toString(scores[15]));
+                    scoreTextFields.get(16).setText(Integer.toString(scores[16]));
+                    scoreTextFields.get(17).setText(Integer.toString(scores[17]));
+                }
+                if(spiller2.isSelected()){
+                    scoreTextFields.get(15+18).setText(Integer.toString(scores[15]));
+                    scoreTextFields.get(16+18).setText(Integer.toString(scores[16]));
+                    scoreTextFields.get(17+18).setText(Integer.toString(scores[17]));
+                }
             }
         }
     }
