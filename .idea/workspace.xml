@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bed1782-295b-4529-b5e0-ce21edd298f8" name="Changes" comment="Full game, UI and Functions">
+    <list default="true" id="7bed1782-295b-4529-b5e0-ce21edd298f8" name="Changes" comment="Two tab players (Doesn't work yet)">
+      <change afterPath="$PROJECT_DIR$/src/models/Storage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/YatzyGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/YatzyGui.java" afterDir="false" />
     </list>
@@ -140,6 +141,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Yatzy result calculator finish" />
     <MESSAGE value="Full game, UI and Functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Full game, UI and Functions" />
+    <MESSAGE value="Two tab players (Doesn't work yet)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Two tab players (Doesn't work yet)" />
   </component>
 </project>

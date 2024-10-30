@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import models.RaffleCup;
 import models.Die;
+import models.Storage;
 import models.YatzyResultCalculator;
 
 import java.util.ArrayList;
@@ -33,9 +34,12 @@ public class YatzyGui extends Application {
     private final Button throwDice = new Button("Throw"); //Knappen til at kaste terninger
     private final int scoreTextFieldSize = 50; //Sætter størrelse på textfield for scores
     private int throwsLeft = 2; //Starter med at være 2 da den starter med at slå en gang for spiller
-    RaffleCup raffleCup = new RaffleCup(); //Create raffleCup
+    RaffleCup raffleCup = new RaffleCup();
     Tab spiller1 = new Tab("Spiller 1");
     Tab spiller2 = new Tab("Spiller 2");
+    private boolean isItPlayerOne;
+
+    private Storage storage = new Storage(this.raffleCup);
 
     @Override
     public void start(Stage primaryStage) {
@@ -45,6 +49,8 @@ public class YatzyGui extends Application {
         GridPane diePane = new GridPane();
         playerScores.add(createScore());
         playerScores.add(createScore());
+
+        isItPlayerOne = true;
 
         //Laver TabPane med 2 tabs
         TabPane tabPane = new TabPane();
@@ -147,6 +153,7 @@ public class YatzyGui extends Application {
             startRow++;
 
         }
+
         addRest(pane,startRow);
 
     }
@@ -250,79 +257,21 @@ public class YatzyGui extends Application {
         return checkBox;
     }
 
-    //Update Sum and Bonus
-    private void updateSum(){
-
-        int sum = 0;
-
-        for(int index = 0; index < 6; index++) {
-
-            if(scoreTextFields.get(index).getText().isEmpty()) sum += 0;
-
-            else sum += Integer.parseInt(scoreTextFields.get(index).getText());
-        }
-
-        this.sum1.setText(Integer.toString(sum));
-
-        if(sum >= 63) bonus1.setText("50");
-        else bonus1.setText("0");
-
-    }
-
-    //Update Total
-    private void updateTotal(){
-
-        int total = 0;
-
-        for(int index = 5; index < scoreTextFields.size(); index++) {
-
-            if(scoreTextFields.get(index).getText().isEmpty()) total += 0;
-
-            else total += Integer.parseInt(scoreTextFields.get(index).getText());
-        }
-
-        if(!sum1.getText().isEmpty()) total += Integer.parseInt(sum1.getText());
-
-        if(!bonus1.getText().isEmpty()) total += Integer.parseInt(bonus1.getText());
-
-
-        this.total1.setText(Integer.toString(total));
-
-    }
-
-    //Throw dice update
-    private void throwDiceUpdater(){
+    private void throwDiceUpdater() {
 
         Die[] dice = new Die[5];
 
-        if(throwsLeft <= 0) ;
+        if (throwsLeft <= 0) ;
 
-        else if(throwsLeft == 3){
+        else if (throwsLeft == 3) {
 
             raffleCup.throwDice();
             dice = raffleCup.getDice();
 
 
-            for(int index = 0; index < dice.length; index++){
+            for (int index = 0; index < dice.length; index++) {
 
                 diceMaster.get(index).setText(Integer.toString(dice[index].getEyes()));
-
-            }
-            throwsLeft--;
-
-            turnsLeftLbl.setText(throwsLeft + " Throws Left");
-
-        }
-
-        else{
-
-            raffleCup.throwDice();
-            dice = raffleCup.getDice();
-
-
-            for(int index = 0; index < dice.length; index++){
-
-                if(!diceKeepBox.get(index).isSelected()) diceMaster.get(index).setText(Integer.toString(dice[index].getEyes()));
 
             }
             throwsLeft--;
@@ -337,10 +286,11 @@ public class YatzyGui extends Application {
 
         TextField textField = (TextField) event.getSource();
 
+        int[] scores = storage.getScoreInt();
+
         Die[] dice = raffleCup.getDice();
 
-        if (throwsLeft == 3);
-        else {
+        if (throwsLeft != 3){
             if(textField.getText().isEmpty()) {
                 for (int index = 0; index < dice.length; index++) {
 
@@ -350,43 +300,16 @@ public class YatzyGui extends Application {
 
                 YatzyResultCalculator points = new YatzyResultCalculator(dice);
 
-                if (arrayPlacement < 6)
-                    textField.setText(Integer.toString(points.upperSectionScore(arrayPlacement + 1)));
-
-                if (arrayPlacement == 6)
-                    textField.setText(Integer.toString(points.onePairScore()));
-
-                if (arrayPlacement == 7)
-                    textField.setText(Integer.toString(points.twoPairScore()));
-
-                if (arrayPlacement == 8)
-                    textField.setText(Integer.toString(points.threeOfAKindScore()));
-
-                if (arrayPlacement == 9)
-                    textField.setText(Integer.toString(points.fourOfAKindScore()));
-
-                if (arrayPlacement == 10)
-                    textField.setText(Integer.toString(points.smallStraightScore()));
-
-                if (arrayPlacement == 11)
-                    textField.setText(Integer.toString(points.largeStraightScore()));
-
-                if (arrayPlacement == 12)
-                    textField.setText(Integer.toString(points.fullHouseScore()));
-
-                if (arrayPlacement == 13)
-                    textField.setText(Integer.toString(points.chanceScore()));
-
-                if (arrayPlacement == 14)
-                    textField.setText(Integer.toString(points.yatzyScore()));
+                textField.setText(Integer.toString(scores[arrayPlacement]));
 
                 throwsLeft = 3;
 
                 for (CheckBox checkBox : diceKeepBox) checkBox.setSelected(false);
                 turnsLeftLbl.setText(throwsLeft + " Throws Left");
 
-                updateSum();
-                updateTotal();
+                sum1.setText(Integer.toString(storage.getSum1()));
+                bonus1.setText(Integer.toString(storage.getBonus1()));
+                total1.setText(Integer.toString(storage.getTotal1()));
             }
         }
     }
