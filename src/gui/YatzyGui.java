@@ -300,7 +300,7 @@ public class YatzyGui extends Application {
 
                     TextField textField = scoreTextFields.get(index);
 
-                    if(textField.getText().isEmpty()) pointSavior[index] = 0;
+                    if(textField.getText().isEmpty()) pointSavior[index] = -1;
                     else pointSavior[index] = Integer.parseInt(textField.getText());
 
                 }
@@ -309,7 +309,10 @@ public class YatzyGui extends Application {
 
                 for(int index = 0; index < 15; index++) potentialScore = storage.getScoreInt(index);
 
-                for(int index = 0; index < 15; index++) scoreTextFields.get(index).setText(Integer.toString(potentialScore[index]));
+                for(int index = 0; index < 15; index++){
+                    scoreTextFields.get(index).setText(Integer.toString(potentialScore[index]));
+                    scoreTextFields.get(index+18).setText(Integer.toString(potentialScore[index]));
+                }
 
             }
 
@@ -325,7 +328,7 @@ public class YatzyGui extends Application {
 
         for(int index = 0; index < 36 - 3; index++){
             if(index < 15 || index >=18){
-                if(pointSavior[index] == 0)scoreTextFields.get(index).setText("");
+                if(pointSavior[index] == -1)scoreTextFields.get(index).setText("");
             }
         }
 
