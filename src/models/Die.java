@@ -24,4 +24,8 @@ public class Die {
     public int getEyes(){
         return eyes;
     }
+
+    public void setEyes(int eyes){
+        this.eyes = eyes;
+    }
 }

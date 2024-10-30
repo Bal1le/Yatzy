@@ -36,20 +36,18 @@ public class YatzyResultCalculator {
 
     public int onePairScore() {
 
-        for (int outerIndex = 0; outerIndex < this.dice.length-1; outerIndex++) {
+        int highest = 0;
 
-            int paired = this.dice[outerIndex].getEyes();
+        int[] eachKind = new int[6];
 
-            for(int innerIndex = outerIndex+1; innerIndex < this.dice.length; innerIndex++){
+        for(Die die : this.dice)
+            eachKind[die.getEyes()-1]++;
 
-                if(paired == this.dice[innerIndex].getEyes())
-                    return paired*2;
-
-            }
+        for(int index = 0; index < eachKind.length; index++){
+            if(eachKind[index] >= 2) highest = index+1 ;
         }
 
-
-        return 0;
+        return (highest * 2);
     }
 
     public int twoPairScore() {
@@ -63,16 +61,18 @@ public class YatzyResultCalculator {
         int secondPairScore = 0;
 
         for(int outerIndex = 0; outerIndex < this.dice.length - 1; outerIndex++){
+
             if(this.dice[outerIndex].getEyes() != whichPair){
+
                 for(int innerIndex = outerIndex+1; innerIndex < this.dice.length; innerIndex++){
+
                     if(this.dice[outerIndex].getEyes() == this.dice[innerIndex].getEyes()){
+
                         secondPairScore = this.dice[outerIndex].getEyes()*2;
                         return firstPairScore + secondPairScore;
 
                     }
-
                 }
-
             }
         }
 

@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bed1782-295b-4529-b5e0-ce21edd298f8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7bed1782-295b-4529-b5e0-ce21edd298f8" name="Changes" comment="Yatzy result calculator finish">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Yatzy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Yatzy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/YatzyGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/YatzyGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/Die.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Die.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/RaffleCup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/RaffleCup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/YatzyResultCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/YatzyResultCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,31 +46,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.YatzyResultsCalculatorTests.executor": "Run",
-    "JUnit.YatzyResultsCalculatorTests.fourOfAKindScoreTests.executor": "Run",
-    "JUnit.YatzyResultsCalculatorTests.largeStraightScoreTests.executor": "Run",
-    "JUnit.YatzyResultsCalculatorTests.onePairScoreTests.executor": "Run",
-    "JUnit.YatzyResultsCalculatorTests.smallStraightScoreTests.executor": "Run",
-    "JUnit.YatzyResultsCalculatorTests.threeOfAKindScoreTests.executor": "Run",
-    "JUnit.YatzyResultsCalculatorTests.twoPairScoreTests.executor": "Run",
-    "JUnit.YatzyResultsCalculatorTests.upperSectionScoreTests.executor": "Run",
-    "Repository.Attach.Annotations": "true",
-    "Repository.Attach.JavaDocs": "true",
-    "Repository.Attach.Sources": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Program Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.fourOfAKindScoreTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.largeStraightScoreTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.onePairScoreTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.smallStraightScoreTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.threeOfAKindScoreTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.twoPairScoreTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.YatzyResultsCalculatorTests.upperSectionScoreTests.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="JUnit.YatzyResultsCalculatorTests">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+}</component>
+  <component name="RunManager" selected="Application.Program Test">
+    <configuration name="Program Test" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="gui.YatzyApp" />
       <module name="Yatzy" />
       <method v="2">
@@ -115,10 +115,10 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Application.Program Test" />
       <item itemvalue="JUnit.YatzyResultsCalculatorTests" />
-      <item itemvalue="JUnit.YatzyResultsCalculatorTests.twoPairScoreTests" />
       <item itemvalue="JUnit.YatzyResultsCalculatorTests.largeStraightScoreTests" />
+      <item itemvalue="JUnit.YatzyResultsCalculatorTests.twoPairScoreTests" />
     </list>
     <recent_temporary>
       <list>
@@ -138,5 +138,9 @@
       <updated>1698393299634</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Yatzy result calculator finish" />
+    <option name="LAST_COMMIT_MESSAGE" value="Yatzy result calculator finish" />
   </component>
 </project>
