@@ -13,10 +13,12 @@ public class Storage {
     private int sum2;
     private int bonus2;
     private int total2;
+    Die[] dice = new Die[5];
+    YatzyResultCalculator points;
 
     public Storage(RaffleCup raffleCup) {
 
-    YatzyResultCalculator points = new YatzyResultCalculator(raffleCup.getDice());
+    points = new YatzyResultCalculator(raffleCup.getDice());
 
     }
     //Update Sum and Bonus
@@ -50,10 +52,10 @@ public class Storage {
         total += bonus1;
     }
 
-    public int[] updateScores(int arrayPlacement, YatzyResultCalculator points){
+    public void updateScores(int arrayPlacement, YatzyResultCalculator points){
 
         if (arrayPlacement < 6)
-            this.scoreInt[arrayPlacement] = points.upperSectionScore(arrayPlacement-1);
+            this.scoreInt[arrayPlacement] = points.upperSectionScore(arrayPlacement+1);
 
         if (arrayPlacement == 6)
             this.scoreInt[arrayPlacement] = points.onePairScore();
@@ -85,11 +87,11 @@ public class Storage {
         updateSum();
         updateTotal();
 
-        return scoreInt;
     }
 
-    public int[] getScoreInt(){
+    public int[] getScoreInt(int arrayPlacement){
 
+        updateScores(arrayPlacement,points);
         return this.scoreInt;
 
     }

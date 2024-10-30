@@ -200,7 +200,6 @@ public class YatzyGui extends Application {
         for(int index = startRow; index <= startRow+4; index++){
 
             pane.add(addTextField(),firstUsedColumn+1,index);
-            //pane.add(addButton(),firstUsedColumn+2,index);
 
         }
 
@@ -259,7 +258,7 @@ public class YatzyGui extends Application {
 
     private void throwDiceUpdater() {
 
-        Die[] dice = new Die[5];
+        Die[] dice;
 
         if (throwsLeft <= 0) ;
 
@@ -286,7 +285,7 @@ public class YatzyGui extends Application {
 
         TextField textField = (TextField) event.getSource();
 
-        int[] scores = storage.getScoreInt();
+        int[] scores = storage.getScoreInt(arrayPlacement);
 
         Die[] dice = raffleCup.getDice();
 
@@ -297,8 +296,6 @@ public class YatzyGui extends Application {
                     dice[index].setEyes(Integer.parseInt(diceMaster.get(index).getText()));
 
                 }
-
-                YatzyResultCalculator points = new YatzyResultCalculator(dice);
 
                 textField.setText(Integer.toString(scores[arrayPlacement]));
 
