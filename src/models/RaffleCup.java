@@ -16,4 +16,11 @@ public class RaffleCup {
     public Die[] getDice() {
         return dice;
     }
+
+    public void setDice(Die[] dice){
+
+        this.dice = dice;
+
+    }
+
 }

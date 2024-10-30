@@ -24,6 +24,7 @@ public class YatzyGui extends Application {
     private final ArrayList<CheckBox> diceKeepBox = new ArrayList<>();
     private final ArrayList<GridPane> playerScores = new ArrayList<>();
     private final Label turnsLeftLbl = new Label();
+    private final int[] pointSavior = new int[36];
     private final Button throwDice = new Button("Throw"); //Knappen til at kaste terninger
     private final int scoreTextFieldSize = 50; //Sætter størrelse på textfield for scores
     private int throwsLeft = 2; //Starter med at være 2 da den starter med at slå en gang for spiller
@@ -40,6 +41,8 @@ public class YatzyGui extends Application {
         playerScores.add(createScore());
         playerScores.add(createScore());
 
+        Storage showPointsStorage = new Storage(raffleCup);
+
         //Laver TabPane med 2 tabs
         TabPane tabPane = new TabPane();
 
@@ -49,7 +52,7 @@ public class YatzyGui extends Application {
         spiller1.setContent(playerScores.get(0));
         spiller2.setContent(playerScores.get(1));
 
-        this.initContent(diePane);
+        this.initContent(diePane, showPointsStorage);
 
         for(GridPane pane : playerScores)
                 this.initContentScore(pane);
@@ -62,7 +65,7 @@ public class YatzyGui extends Application {
     }
 
     //Setup af de to gridpanes i UI med border
-    private void initContent(GridPane diePane){
+    private void initContent(GridPane diePane, Storage storage){
 
         diePane.setGridLinesVisible(false);
 
@@ -70,7 +73,7 @@ public class YatzyGui extends Application {
         diePane.setHgap(10);
         diePane.setVgap(10);
 
-        terningerUpset(diePane);
+        terningerUpset(diePane, storage);
         diePane.setStyle(setBorderColorForGridPane());
     }
 
@@ -88,7 +91,7 @@ public class YatzyGui extends Application {
     }
 
     //row 1-5 skal bruges til terninger
-    private void terningerUpset(GridPane pane){
+    private void terningerUpset(GridPane pane, Storage storage){
 
         for(int index = 0; index < 5; index++){
             addTerning(pane,index);
@@ -106,7 +109,7 @@ public class YatzyGui extends Application {
         turnsLeftLbl.setText(throwsLeft + " Throws Left");
 
         pane.add(throwDice,3,4);
-        throwDice.setOnAction(event -> throwDiceUpdater());
+        throwDice.setOnAction(event -> throwDiceUpdater(storage));
 
     }
 
@@ -244,7 +247,8 @@ public class YatzyGui extends Application {
         return checkBox;
     }
 
-    private void throwDiceUpdater() {
+    //Throw dice update
+    private void throwDiceUpdater(Storage storage) {
 
         Die[] dice;
 
@@ -277,9 +281,39 @@ public class YatzyGui extends Application {
                 if(!diceKeepBox.get(index).isSelected()) diceMaster.get(index).setText(Integer.toString(dice[index].getEyes()));
 
             }
+
+            for (int index = 0; index < dice.length; index++) {
+
+                dice[index].setEyes(Integer.parseInt(diceMaster.get(index).getText()));
+
+            }
+            raffleCup.setDice(dice);
+
             throwsLeft--;
 
             turnsLeftLbl.setText(throwsLeft + " Throws Left");
+
+
+            if(throwsLeft == 0){
+
+                for(int index = 0; index < scoreTextFields.size(); index++){
+
+                    TextField textField = scoreTextFields.get(index);
+
+                    if(textField.getText().isEmpty()) pointSavior[index] = 0;
+                    else pointSavior[index] = Integer.parseInt(textField.getText());
+
+                }
+
+                int[] potentialScore = new int[15];
+
+                for(int index = 0; index < 15; index++) potentialScore = storage.getScoreInt(index);
+
+                for(int index = 0; index < 15; index++) scoreTextFields.get(index).setText(Integer.toString(potentialScore[index]));
+
+            }
+
+
 
         }
     }
@@ -289,18 +323,16 @@ public class YatzyGui extends Application {
 
         TextField textField = (TextField) event.getSource();
 
-        int[] scores;
+        for(int index = 0; index < 36 - 3; index++){
+            if(index < 15 || index >=18){
+                if(pointSavior[index] == 0)scoreTextFields.get(index).setText("");
+            }
+        }
 
-        Die[] dice = raffleCup.getDice();
+        int[] scores = storage.getScoreInt(arrayPlacement);
 
         if (throwsLeft < 3){
             if(textField.getText().isEmpty()) {
-                for (int index = 0; index < dice.length; index++) {
-
-                    dice[index].setEyes(Integer.parseInt(diceMaster.get(index).getText()));
-
-                }
-                scores = storage.getScoreInt(arrayPlacement);
 
                 textField.setText(Integer.toString(scores[arrayPlacement]));
 
