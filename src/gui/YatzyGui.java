@@ -22,14 +22,20 @@ public class YatzyGui extends Application {
     private final ArrayList<TextField> scoreTextFields = new ArrayList<>();
     private final ArrayList<Label> diceMaster = new ArrayList<>();
     private final ArrayList<CheckBox> diceKeepBox = new ArrayList<>();
-    private final TextField sum = new TextField();
-    private final TextField bonus = new TextField();
-    private final TextField total = new TextField();
+    private final ArrayList<GridPane> playerScores = new ArrayList<>();
+    private final TextField sum1 = new TextField();
+    private final TextField bonus1 = new TextField();
+    private final TextField total1 = new TextField();
+    private final TextField sum2 = new TextField();
+    private final TextField bonus2 = new TextField();
+    private final TextField total2 = new TextField();
     private final Label turnsLeftLbl = new Label();
     private final Button throwDice = new Button("Throw"); //Knappen til at kaste terninger
     private final int scoreTextFieldSize = 50; //Sætter størrelse på textfield for scores
     private int throwsLeft = 2; //Starter med at være 2 da den starter med at slå en gang for spiller
     RaffleCup raffleCup = new RaffleCup(); //Create raffleCup
+    Tab spiller1 = new Tab("Spiller 1");
+    Tab spiller2 = new Tab("Spiller 2");
 
     @Override
     public void start(Stage primaryStage) {
@@ -37,13 +43,24 @@ public class YatzyGui extends Application {
         primaryStage.setTitle("Yatzy");
         GridPane mainPane = new GridPane();
         GridPane diePane = new GridPane();
-        GridPane scorePane = new GridPane();
+        playerScores.add(createScore());
+        playerScores.add(createScore());
+
+        //Laver TabPane med 2 tabs
+        TabPane tabPane = new TabPane();
 
         mainPane.add(diePane,0,0);
-        mainPane.add(scorePane,0,2);
+        mainPane.add(tabPane,0,2);
 
-        this.initContent(diePane,scorePane);
+        spiller1.setContent(playerScores.get(0));
+        spiller2.setContent(playerScores.get(1));
 
+        this.initContent(diePane);
+
+        for(GridPane pane : playerScores)
+                this.initContentScore(pane);
+
+        tabPane.getTabs().addAll(spiller1,spiller2);
         Scene scene = new Scene(mainPane);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -51,22 +68,27 @@ public class YatzyGui extends Application {
     }
 
     //Setup af de to gridpanes i UI med border
-    private void initContent(GridPane diePane, GridPane scorePane){
+    private void initContent(GridPane diePane){
 
         diePane.setGridLinesVisible(false);
-        scorePane.setGridLinesVisible(false);
 
         diePane.setPadding(new Insets(20));
         diePane.setHgap(10);
         diePane.setVgap(10);
 
+        terningerUpset(diePane);
+        diePane.setStyle(setBorderColorForGridPane());
+    }
+
+    private void initContentScore(GridPane scorePane){
+
+        scorePane.setGridLinesVisible(false);
+
         scorePane.setPadding(new Insets(20));
         scorePane.setHgap(10);
         scorePane.setVgap(10);
 
-        terningerUpset(diePane);
         scoreUpset(scorePane);
-        diePane.setStyle(setBorderColorForGridPane());
         scorePane.setStyle(setBorderColorForGridPane());
     }
 
@@ -108,12 +130,12 @@ public class YatzyGui extends Application {
         }
 
         pane.add(addLabel("Sum"),firstUsedColumn,7);
-        pane.add(sum,firstUsedColumn+1,7);
-        sum.setPrefWidth(scoreTextFieldSize);
+        pane.add(sum1,firstUsedColumn+1,7);
+        sum1.setPrefWidth(scoreTextFieldSize);
 
         pane.add(addLabel("Bonus"),firstUsedColumn,8);
-        pane.add(bonus,firstUsedColumn+1,8);
-        bonus.setPrefWidth(scoreTextFieldSize);
+        pane.add(bonus1,firstUsedColumn+1,8);
+        bonus1.setPrefWidth(scoreTextFieldSize);
 
         startRow = 0;
 
@@ -176,8 +198,8 @@ public class YatzyGui extends Application {
         }
 
         pane.add(addLabel("Total"),firstUsedColumn-5,startRow+6);
-        pane.add(total,firstUsedColumn-4,startRow+6);
-        total.setPrefWidth(scoreTextFieldSize);
+        pane.add(total1,firstUsedColumn-4,startRow+6);
+        total1.setPrefWidth(scoreTextFieldSize);
 
     }
 
@@ -240,10 +262,10 @@ public class YatzyGui extends Application {
             else sum += Integer.parseInt(scoreTextFields.get(index).getText());
         }
 
-        this.sum.setText(Integer.toString(sum));
+        this.sum1.setText(Integer.toString(sum));
 
-        if(sum >= 63) bonus.setText("50");
-        else bonus.setText("0");
+        if(sum >= 63) bonus1.setText("50");
+        else bonus1.setText("0");
 
     }
 
@@ -259,12 +281,12 @@ public class YatzyGui extends Application {
             else total += Integer.parseInt(scoreTextFields.get(index).getText());
         }
 
-        if(!sum.getText().isEmpty()) total += Integer.parseInt(sum.getText());
+        if(!sum1.getText().isEmpty()) total += Integer.parseInt(sum1.getText());
 
-        if(!bonus.getText().isEmpty()) total += Integer.parseInt(bonus.getText());
+        if(!bonus1.getText().isEmpty()) total += Integer.parseInt(bonus1.getText());
 
 
-        this.total.setText(Integer.toString(total));
+        this.total1.setText(Integer.toString(total));
 
     }
 
@@ -330,22 +352,31 @@ public class YatzyGui extends Application {
 
                 if (arrayPlacement < 6)
                     textField.setText(Integer.toString(points.upperSectionScore(arrayPlacement + 1)));
+
                 if (arrayPlacement == 6)
                     textField.setText(Integer.toString(points.onePairScore()));
+
                 if (arrayPlacement == 7)
                     textField.setText(Integer.toString(points.twoPairScore()));
+
                 if (arrayPlacement == 8)
                     textField.setText(Integer.toString(points.threeOfAKindScore()));
+
                 if (arrayPlacement == 9)
                     textField.setText(Integer.toString(points.fourOfAKindScore()));
+
                 if (arrayPlacement == 10)
                     textField.setText(Integer.toString(points.smallStraightScore()));
+
                 if (arrayPlacement == 11)
                     textField.setText(Integer.toString(points.largeStraightScore()));
+
                 if (arrayPlacement == 12)
                     textField.setText(Integer.toString(points.fullHouseScore()));
+
                 if (arrayPlacement == 13)
                     textField.setText(Integer.toString(points.chanceScore()));
+
                 if (arrayPlacement == 14)
                     textField.setText(Integer.toString(points.yatzyScore()));
 
@@ -366,5 +397,11 @@ public class YatzyGui extends Application {
         String borderColor = "#252525";
 
         return "-fx-border:" + borderColor + "; -fx-border-width: 1; -fx-border-style: solid; -fx-border-insets: 5;";
+    }
+
+    private GridPane createScore(){
+        GridPane scorePane = new GridPane();
+        return (scorePane);
+
     }
 }
