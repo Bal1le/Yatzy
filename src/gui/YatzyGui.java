@@ -297,7 +297,7 @@ public class YatzyGui extends Application {
     private void chooseFieldAction(Event event, int arrayPlacement, Storage storage) {
 
         TextField textField = (TextField) event.getSource();
-
+        textField.setDisable(true);
         for (int index = 0; index < 36 - 3; index++) {
             if (index < 15 || index >= 18) {
                 if (pointSavior[index] == -1) scoreTextFields.get(index).setText("");
