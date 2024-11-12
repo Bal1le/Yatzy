@@ -283,8 +283,10 @@ public class YatzyGui extends Application {
                 int[] potentialScore = new int[15];
                 for (int index = 0; index < 15; index++) potentialScore = storage.getScoreInt(index);
                 for (int index = 0; index < 15; index++) {
-                    scoreTextFields.get(index).setText(Integer.toString(potentialScore[index]));
-                    scoreTextFields.get(index + 18).setText(Integer.toString(potentialScore[index]));
+                    if (!scoreTextFields.get(index).isDisabled()) {
+                        scoreTextFields.get(index).setText(Integer.toString(potentialScore[index]));
+                        scoreTextFields.get(index + 18).setText(Integer.toString(potentialScore[index]));
+                    }
                 }
                 for (CheckBox keepBox : diceKeepBox) {
                     keepBox.setDisable(true);
